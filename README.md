@@ -1,4 +1,4 @@
-# Star Wars Monopoly Cards Manager
+# Monopoly Cards Manager
 
 A web application for managing and tracking a Star Wars Monopoly card collection.
 
