@@ -149,6 +149,9 @@
         <button id="filterGold" class="filter-btn px-3 py-1 rounded text-white bg-gray-500">
             GOLD cards
         </button>
+        <button id="filterTotalOnly" class="filter-btn px-3 py-1 rounded text-white bg-gray-500">
+            Total column only
+        </button>
     </div>
     
     <!-- Star filters -->
@@ -204,7 +207,50 @@
         let cards = [];
         let accounts = [];
         let currentFilter = 'all'; // Possible values: 'all', 'exchangeable', 'missing'
+        let showTotalOnly = false;
         
+        // Function to toggle the total-only view
+        function toggleTotalOnlyView() {
+            showTotalOnly = !showTotalOnly;
+            
+            // Update button appearance
+            const totalOnlyBtn = document.getElementById('filterTotalOnly');
+            if (showTotalOnly) {
+                totalOnlyBtn.classList.remove('bg-gray-500');
+                totalOnlyBtn.classList.add('bg-blue-500');
+            } else {
+                totalOnlyBtn.classList.remove('bg-blue-500');
+                totalOnlyBtn.classList.add('bg-gray-500');
+            }
+            
+            // Update the table display
+            updateTableColumns();
+        }
+
+        // Function to update table columns based on showTotalOnly flag
+        function updateTableColumns() {
+            const table = document.querySelector('table');
+            const headerRow = table.querySelector('thead tr');
+            const dataRows = table.querySelectorAll('tbody tr');
+            
+            // Get all header cells (first cell is Name, second is Total, rest are accounts)
+            const headerCells = headerRow.querySelectorAll('th');
+            
+            // Start from index 2 (third column) which is the first account column
+            for (let i = 2; i < headerCells.length; i++) {
+                const display = showTotalOnly ? 'none' : 'table-cell';
+                headerCells[i].style.display = display;
+                
+                // For each data row, hide/show the corresponding cells
+                dataRows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    if (cells.length > i) {
+                        cells[i].style.display = display;
+                    }
+                });
+            }
+        }
+
         // Function to initialize storage with default values if needed
         function initializeStorage() {
             if (!localStorage.getItem('cardsManagerAccounts')) {
@@ -780,6 +826,9 @@
             
             // Add event listeners to inputs
             addQuantityInputListeners();
+
+            // Maintenir l'état de visibilité des colonnes
+            updateTableColumns();
         }
 
         // Separate function to add listeners to quantity inputs
@@ -996,6 +1045,10 @@
             
             document.getElementById('filterMissing').addEventListener('click', function() {
                 setActiveFilter('missing');
+            });
+            // Nouveau bouton Total column only
+            document.getElementById('filterTotalOnly').addEventListener('click', function() {
+                toggleTotalOnlyView();
             });
             
             // Export/Import buttons
