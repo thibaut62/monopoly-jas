@@ -57,11 +57,6 @@ No installation required, the application works directly in the browser.
 
 For developers:
 1. Clone this repository
-2. Open index.html in your browser
-
-## French Version
-
-A French version of this application is available at [https://github.com/thibaut62/monopolyGo-Fr](https://github.com/thibaut62/monopolyGo-Fr)
 
 ## Support
 
@@ -71,7 +66,3 @@ If you find this application useful, consider supporting its development through
 
 Developed with ❤️ for the MG... community by Thibaut Delville.
 If you find this application useful, consider supporting its development through the PayPal donation button in the application.
-
----
-
-Developed with ❤️ for the MG... community by Thibaut Delville.
